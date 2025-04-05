@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Jennvelin</title>
+  <meta charset="UTF-8" />
+  <title>Jennvelin | Login</title>
   <script type="module" src="app.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Welcome to Jennvelin</h1>
-  <!-- Add signup/login UI here -->
+  <h1>Welcome to Jennvelin 🏐</h1>
+
+  <h2>Sign Up</h2>
+  <form id="signup-form">
+    <input type="email" id="signup-email" placeholder="Email" required />
+    <input type="password" id="signup-password" placeholder="Password" required />
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <h2>Login</h2>
+  <form id="login-form">
+    <input type="email" id="login-email" placeholder="Email" required />
+    <input type="password" id="login-password" placeholder="Password" required />
+    <button type="submit">Log In</button>
+  </form>
+
+  <button id="google-login">Sign In with Google</button>
+  <button id="resend-verification" style="display: none;">Resend Verification Email</button>
+
+  <p id="message"></p>
 </body>
 </html>
