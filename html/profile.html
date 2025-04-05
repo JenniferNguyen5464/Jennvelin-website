@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jennvelin | Profile</title>
+  <script type="module" src="../js/profile.js"></script>
+  <script type="module" src="../js/auth.js"></script>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Jennvelin 🏐</h1>
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li><a href="runs.html">Runs</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="profile-container" style="display: none;">
+    <h2>Your Profile</h2>
+    <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+    <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+    <p><strong>Position:</strong> <span id="profile-position">Not set</span></p>
+    <p><strong>City:</strong> <span id="profile-city">Not set</span></p>
+    <img id="profile-photo" src="" alt="Profile Photo" style="max-width: 100px; display: none;" />
+
+    <h3>Edit Profile</h3>
+    <form id="edit-profile-form">
+      <input type="text" id="edit-name" placeholder="Name" />
+      <input type="text" id="edit-position" placeholder="Position (e.g., Setter)" />
+      <input type="text" id="edit-city" placeholder="City" />
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <p id="message" style="text-align:center;"></p>
+
+  <footer>
+    <p>© 2025 Jennvelin Volleyball. Built with ❤️</p>
+  </footer>
+</body>
+</html>
