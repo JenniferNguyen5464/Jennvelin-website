@@ -1,4 +1,3 @@
-// Firebase SDK imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { 
   getAuth, 
@@ -6,7 +5,7 @@ import {
   signInWithEmailAndPassword, 
   sendEmailVerification,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup 
 } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
 import { 
@@ -27,12 +26,12 @@ const firebaseConfig = {
   measurementId: "G-XCXW38HZMS"
 };
 
-// Init Firebase services
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// SIGN UP
+// Sign Up
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("signup-email").value;
@@ -57,7 +56,7 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
   }
 });
 
-// LOGIN
+// Login
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("login-email").value;
@@ -80,7 +79,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   }
 });
 
-// GOOGLE LOGIN
+// Google Login
 document.getElementById("google-login").addEventListener("click", async () => {
   const provider = new GoogleAuthProvider();
 
@@ -105,7 +104,7 @@ document.getElementById("google-login").addEventListener("click", async () => {
   }
 });
 
-// RESEND EMAIL VERIFICATION
+// Resend Email Verification
 document.getElementById("resend-verification").addEventListener("click", async () => {
   const user = auth.currentUser;
 
@@ -121,7 +120,7 @@ document.getElementById("resend-verification").addEventListener("click", async (
   }
 });
 
-// LOAD PROFILE FROM FIRESTORE
+// Load User Profile
 async function loadUserProfile(uid) {
   try {
     const userDoc = await getDoc(doc(db, "users", uid));
@@ -130,6 +129,12 @@ async function loadUserProfile(uid) {
 
       document.getElementById("profile-name").textContent = data.displayName || "Not provided";
       document.getElementById("profile-email").textContent = data.email;
+      document.getElementById("profile-position").textContent = data.position || "Not set";
+      document.getElementById("profile-city").textContent = data.city || "Not set";
+
+      document.getElementById("edit-name").value = data.displayName || "";
+      document.getElementById("edit-position").value = data.position || "";
+      document.getElementById("edit-city").value = data.city || "";
 
       const profilePhoto = document.getElementById("profile-photo");
       if (data.photoURL) {
@@ -138,6 +143,7 @@ async function loadUserProfile(uid) {
       }
 
       document.getElementById("profile").style.display = "block";
+      document.getElementById("edit-profile").style.display = "block";
     } else {
       document.getElementById("message").textContent = "⚠️ Profile not found in Firestore.";
     }
@@ -145,3 +151,35 @@ async function loadUserProfile(uid) {
     document.getElementById("message").textContent = `❌ Error loading profile: ${error.message}`;
   }
 }
+
+// Edit Profile Form
+document.getElementById("edit-profile-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const user = auth.currentUser;
+  if (!user) {
+    document.getElementById("message").textContent = "❌ No user logged in.";
+    return;
+  }
+
+  const name = document.getElementById("edit-name").value.trim();
+  const position = document.getElementById("edit-position").value.trim();
+  const city = document.getElementById("edit-city").value.trim();
+
+  try {
+    await setDoc(doc(db, "users", user.uid), {
+      displayName: name,
+      position: position,
+      city: city,
+      email: user.email,
+      uid: user.uid,
+      photoURL: user.photoURL || null,
+      updatedAt: new Date()
+    });
+
+    document.getElementById("message").textContent = "✅ Profile updated!";
+    await loadUserProfile(user.uid);
+  } catch (error) {
+    document.getElementById("message").textContent = `❌ ${error.message}`;
+  }
+});

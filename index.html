@@ -32,7 +32,19 @@
     <h2>Your Profile</h2>
     <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
     <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+    <p><strong>Position:</strong> <span id="profile-position">Not set</span></p>
+    <p><strong>City:</strong> <span id="profile-city">Not set</span></p>
     <img id="profile-photo" src="" alt="Profile Photo" style="max-width: 100px; display: none;" />
+  </div>
+
+  <div id="edit-profile" style="display: none; margin-top: 2rem;">
+    <h2>Edit Profile</h2>
+    <form id="edit-profile-form">
+      <input type="text" id="edit-name" placeholder="Name" />
+      <input type="text" id="edit-position" placeholder="Position (e.g., Setter)" />
+      <input type="text" id="edit-city" placeholder="City" />
+      <button type="submit">Save Changes</button>
+    </form>
   </div>
 </body>
 </html>
