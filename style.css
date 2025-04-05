@@ -1,25 +1,100 @@
+/* === GLOBAL STYLES (applied to all pages) === */
 body {
-    font-family: sans-serif;
-    max-width: 400px;
-    margin: auto;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #222;
+    margin: 0 auto;
     padding: 2rem;
+    max-width: 800px;
+    line-height: 1.6;
+  }
+  
+  h1, h2 {
     text-align: center;
-  }
-  
-  input {
-    display: block;
-    margin: 0.5rem auto;
-    padding: 0.5rem;
-    width: 90%;
-  }
-  
-  button {
-    padding: 0.5rem 1rem;
     margin-bottom: 1rem;
   }
   
+  /* === FORMS === */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  
+  input, button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background-color: #ff3b3b;
+  }
+  
+  /* === MESSAGE AREA === */
   #message {
-    margin-top: 1rem;
+    text-align: center;
     font-weight: bold;
+    margin: 1rem 0;
+  }
+  
+  /* === PROFILE DISPLAY === */
+  #profile, #edit-profile {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+  
+  #profile img {
+    display: block;
+    margin: 1rem auto;
+    border-radius: 50%;
+  }
+  
+  /* === MEDIA PAGE === */
+  .video-gallery,
+  .photo-gallery {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .video-gallery iframe {
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .photo-gallery img {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* === NAVIGATION LINKS (optional) === */
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #ff6b6b;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    text-decoration: underline;
   }
   
