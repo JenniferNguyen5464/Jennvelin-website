@@ -3,66 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <title>Jennvelin | Home</title>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="auth.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- HEADER & NAVBAR -->
+  <!-- Header & Navbar -->
   <header>
     <h1>Jennvelin 🏐</h1>
     <nav>
-      <ul class="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="media.html">Media</a></li>
-        <li><a href="runs.html">Runs</a></li>
-        <li><a href="profile.html">Profile</a></li>
+      <ul class="navbar" id="navbar">
+        <!-- Links will be injected by auth.js -->
       </ul>
     </nav>
   </header>
 
-  <!-- Main Content -->
-  <h2>Sign Up</h2>
-  <form id="signup-form">
-    <input type="email" id="signup-email" placeholder="Email" required />
-    <input type="password" id="signup-password" placeholder="Password" required />
-    <button type="submit">Sign Up</button>
-  </form>
+  <!-- Advertisement Content -->
+  <section>
+    <h2>🏐 Welcome to Jennvelin!</h2>
+    <p>Your go-to spot for volleyball runs, highlights, and more!</p>
+    <p>Join the community and never miss a game again 💙</p>
+  </section>
 
-  <h2>Login</h2>
-  <form id="login-form">
-    <input type="email" id="login-email" placeholder="Email" required />
-    <input type="password" id="login-password" placeholder="Password" required />
-    <button type="submit">Log In</button>
-  </form>
+  <section>
+    <h3>📍 Upcoming Runs (Preview)</h3>
+    <ul>
+      <li>🏐 Sunday Open Gym – Toronto YMCA – 2PM–5PM</li>
+      <li>🏐 Friday Night Co-ed – Rec Centre – 6PM–9PM</li>
+    </ul>
+    <p><a href="runs.html">See All Runs →</a></p>
+  </section>
 
-  <button id="google-login">Sign In with Google</button>
-  <button id="resend-verification" style="display: none;">Resend Verification Email</button>
-
-  <p id="message"></p>
-
-  <div id="profile" style="display: none; margin-top: 2rem;">
-    <h2>Your Profile</h2>
-    <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
-    <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
-    <p><strong>Position:</strong> <span id="profile-position">Not set</span></p>
-    <p><strong>City:</strong> <span id="profile-city">Not set</span></p>
-    <img id="profile-photo" src="" alt="Profile Photo" style="max-width: 100px; display: none;" />
-  </div>
-
-  <div id="edit-profile" style="display: none; margin-top: 2rem;">
-    <h2>Edit Profile</h2>
-    <form id="edit-profile-form">
-      <input type="text" id="edit-name" placeholder="Name" />
-      <input type="text" id="edit-position" placeholder="Position (e.g., Setter)" />
-      <input type="text" id="edit-city" placeholder="City" />
-      <button type="submit">Save Changes</button>
-    </form>
-  </div>
-
-  <button id="logout-btn" style="display: none; margin-top: 1rem;">Log Out</button>
-
-  <!-- FOOTER -->
+  <!-- Footer -->
   <footer>
     <p>© 2025 Jennvelin Volleyball. Built with ❤️</p>
   </footer>
