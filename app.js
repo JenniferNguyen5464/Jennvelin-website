@@ -1,4 +1,4 @@
-// Import Firebase modules
+// Firebase SDK imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { 
   getAuth, 
@@ -12,7 +12,8 @@ import {
 import { 
   getFirestore, 
   doc, 
-  setDoc 
+  setDoc, 
+  getDoc 
 } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 // Firebase config
@@ -26,12 +27,12 @@ const firebaseConfig = {
   measurementId: "G-XCXW38HZMS"
 };
 
-// Initialize Firebase
+// Init Firebase services
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// SIGN UP with email verification + Firestore
+// SIGN UP
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("signup-email").value;
@@ -43,7 +44,6 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
 
     await sendEmailVerification(user);
 
-    // Save user to Firestore
     await setDoc(doc(db, "users", user.uid), {
       uid: user.uid,
       email: user.email,
@@ -57,7 +57,7 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
   }
 });
 
-// LOGIN with emailVerified check
+// LOGIN
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("login-email").value;
@@ -70,6 +70,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     if (user.emailVerified) {
       document.getElementById("message").textContent = "✅ Login successful!";
       document.getElementById("resend-verification").style.display = "none";
+      await loadUserProfile(user.uid);
     } else {
       document.getElementById("message").textContent = "⚠️ Please verify your email before logging in.";
       document.getElementById("resend-verification").style.display = "block";
@@ -79,7 +80,32 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   }
 });
 
-// RESEND VERIFICATION EMAIL
+// GOOGLE LOGIN
+document.getElementById("google-login").addEventListener("click", async () => {
+  const provider = new GoogleAuthProvider();
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      createdAt: new Date(),
+      method: "google"
+    });
+
+    document.getElementById("message").textContent = `✅ Welcome, ${user.displayName || user.email}!`;
+    document.getElementById("resend-verification").style.display = "none";
+    await loadUserProfile(user.uid);
+  } catch (error) {
+    document.getElementById("message").textContent = `❌ ${error.message}`;
+  }
+});
+
+// RESEND EMAIL VERIFICATION
 document.getElementById("resend-verification").addEventListener("click", async () => {
   const user = auth.currentUser;
 
@@ -95,27 +121,27 @@ document.getElementById("resend-verification").addEventListener("click", async (
   }
 });
 
-// GOOGLE LOGIN + Save user to Firestore
-document.getElementById("google-login").addEventListener("click", async () => {
-  const provider = new GoogleAuthProvider();
-
+// LOAD PROFILE FROM FIRESTORE
+async function loadUserProfile(uid) {
   try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
+    const userDoc = await getDoc(doc(db, "users", uid));
+    if (userDoc.exists()) {
+      const data = userDoc.data();
 
-    // Save user to Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      createdAt: new Date(),
-      method: "google"
-    });
+      document.getElementById("profile-name").textContent = data.displayName || "Not provided";
+      document.getElementById("profile-email").textContent = data.email;
 
-    document.getElementById("message").textContent = `✅ Welcome, ${user.displayName || user.email}!`;
-    document.getElementById("resend-verification").style.display = "none";
+      const profilePhoto = document.getElementById("profile-photo");
+      if (data.photoURL) {
+        profilePhoto.src = data.photoURL;
+        profilePhoto.style.display = "block";
+      }
+
+      document.getElementById("profile").style.display = "block";
+    } else {
+      document.getElementById("message").textContent = "⚠️ Profile not found in Firestore.";
+    }
   } catch (error) {
-    document.getElementById("message").textContent = `❌ ${error.message}`;
+    document.getElementById("message").textContent = `❌ Error loading profile: ${error.message}`;
   }
-});
+}
