@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Jennvelin | Login</title>
+  <title>Jennvelin | Home</title>
   <script type="module" src="app.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Welcome to Jennvelin 🏐</h1>
 
+  <!-- HEADER & NAVBAR -->
+  <header>
+    <h1>Jennvelin 🏐</h1>
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li><a href="runs.html">Runs</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
   <h2>Sign Up</h2>
   <form id="signup-form">
     <input type="email" id="signup-email" placeholder="Email" required />
@@ -48,5 +61,11 @@
   </div>
 
   <button id="logout-btn" style="display: none; margin-top: 1rem;">Log Out</button>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Jennvelin Volleyball. Built with ❤️</p>
+  </footer>
+
 </body>
 </html>

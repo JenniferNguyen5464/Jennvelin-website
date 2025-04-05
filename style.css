@@ -1,4 +1,4 @@
-/* === GLOBAL STYLES (applied to all pages) === */
+/* === GLOBAL STYLES === */
 body {
     font-family: Arial, sans-serif;
     background-color: #fff;
@@ -14,7 +14,6 @@ body {
     margin-bottom: 1rem;
   }
   
-  /* === FORMS === */
   form {
     display: flex;
     flex-direction: column;
@@ -41,14 +40,12 @@ body {
     background-color: #ff3b3b;
   }
   
-  /* === MESSAGE AREA === */
   #message {
     text-align: center;
     font-weight: bold;
     margin: 1rem 0;
   }
   
-  /* === PROFILE DISPLAY === */
   #profile, #edit-profile {
     border: 1px solid #ddd;
     padding: 1rem;
@@ -62,7 +59,7 @@ body {
     border-radius: 50%;
   }
   
-  /* === MEDIA PAGE === */
+  /* === MEDIA GALLERY STYLES === */
   .video-gallery,
   .photo-gallery {
     display: flex;
@@ -70,11 +67,6 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 2rem;
-  }
-  
-  .video-gallery iframe {
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   }
   
   .photo-gallery img {
@@ -85,16 +77,72 @@ body {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* === NAVIGATION LINKS (optional) === */
-  a {
-    display: inline-block;
-    margin-top: 1rem;
-    color: #ff6b6b;
-    text-decoration: none;
-    font-weight: bold;
+  .video-gallery iframe {
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   }
   
-  a:hover {
-    text-decoration: underline;
+  /* === HEADER === */
+  header {
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 2rem;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  /* === NAVBAR === */
+  .navbar {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .navbar li a {
+    text-decoration: none;
+    color: #ff6b6b;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar li a:hover {
+    color: #ff3b3b;
+  }
+  
+  /* === FOOTER === */
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #999;
+    border-top: 2px solid #eee;
+  }
+  .run-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #f9f9f9;
+  }
+  
+  .rsvp-btn {
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .rsvp-btn:hover {
+    background-color: #2563eb;
   }
   
