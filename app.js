@@ -1,18 +1,19 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   sendEmailVerification,
   GoogleAuthProvider,
-  signInWithPopup 
+  signInWithPopup,
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-import { 
-  getFirestore, 
-  doc, 
-  setDoc, 
-  getDoc 
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 // Firebase config
@@ -69,6 +70,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     if (user.emailVerified) {
       document.getElementById("message").textContent = "✅ Login successful!";
       document.getElementById("resend-verification").style.display = "none";
+      document.getElementById("logout-btn").style.display = "block";
       await loadUserProfile(user.uid);
     } else {
       document.getElementById("message").textContent = "⚠️ Please verify your email before logging in.";
@@ -98,6 +100,7 @@ document.getElementById("google-login").addEventListener("click", async () => {
 
     document.getElementById("message").textContent = `✅ Welcome, ${user.displayName || user.email}!`;
     document.getElementById("resend-verification").style.display = "none";
+    document.getElementById("logout-btn").style.display = "block";
     await loadUserProfile(user.uid);
   } catch (error) {
     document.getElementById("message").textContent = `❌ ${error.message}`;
@@ -120,7 +123,7 @@ document.getElementById("resend-verification").addEventListener("click", async (
   }
 });
 
-// Load User Profile
+// Load Profile
 async function loadUserProfile(uid) {
   try {
     const userDoc = await getDoc(doc(db, "users", uid));
@@ -181,5 +184,21 @@ document.getElementById("edit-profile-form").addEventListener("submit", async (e
     await loadUserProfile(user.uid);
   } catch (error) {
     document.getElementById("message").textContent = `❌ ${error.message}`;
+  }
+});
+
+// Log Out
+document.getElementById("logout-btn").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    document.getElementById("message").textContent = "👋 Logged out successfully.";
+
+    // Hide all user-specific sections
+    document.getElementById("profile").style.display = "none";
+    document.getElementById("edit-profile").style.display = "none";
+    document.getElementById("logout-btn").style.display = "none";
+    document.getElementById("resend-verification").style.display = "none";
+  } catch (error) {
+    document.getElementById("message").textContent = `❌ Logout failed: ${error.message}`;
   }
 });
